@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Base palette ---- */
+  --color-void: #060605;
+  --color-ink: #0a0908;
+  --color-ivory: #f5f0e8;
+  --color-muted: #a8a29e;
+
+  /* ---- Primary accent: amber ---- */
+  --color-amber: #d97706;
+  --color-amber-deep: #b45309;
+  --color-amber-glow: #f5b942;
+
+  /* ---- Second accent: deep muted teal ---- */
+  --color-teal-deep: #0f766e;
+
+  /* ---- Per-project colour keys ---- */
+  --color-project-grant: #b45309;
+  --color-project-ubp: #0f766e;
+  --color-project-leadforge: #15803d;
+  --color-project-knell: #6d28d9;
+  --color-project-showonce: #e5484d;
+
+  /* ---- Fonts (set in layout.tsx via next/font) ---- */
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+
+  /* ---- Motion tokens ---- */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--color-void);
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-void);
+}
+
+/* Hairline rule used widely across mono sections. */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 240, 232, 0.18),
+    rgba(245, 240, 232, 0.04)
+  );
+}
+
+/* Fine mono eyebrow label. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Sweeping scanline for the record log. */
+@keyframes scanline {
+  0% {
+    top: 0;
+    opacity: 0.6;
+  }
+  88% {
+    top: 100%;
+    opacity: 0.15;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+.scanline {
+  animation: scanline 14s linear infinite;
+}
+
+/* Visible keyboard focus. */
+:focus-visible {
+  outline: 2px solid var(--color-amber-glow);
+  outline-offset: 3px;
+}
+
+/* Hide cursor chrome on non-fine pointers. */
+@media (pointer: coarse) {
+  .cursor-only {
+    display: none;
+  }
+}
+
+/* Reduced motion: kill all scripting motion, keep content visible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
